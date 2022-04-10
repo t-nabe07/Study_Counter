@@ -1,7 +1,6 @@
 <div class="container">
-
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 my-4">
       <h3>勉強時間を記録しよう!!</h3>
       <%= form_with model: @study, url:'/studies', local:true do |f| %>
         <h4>day</h4>
@@ -9,12 +8,11 @@
         <h4>time</h4>
         <%= f.text_area :time, placeholder: "小数点第一位まで可", class:"time_form" %>
         <h4>category</h4>
-        <p>カテゴリー(item)実装予定</p>
+        <%= f.text_area :item, placeholder: "項目を入力してください" %><br>
         <%= f.submit "記録",class: 'submit_btn' %>
       <% end %>
     </div>
-
-    <div class="col-md-6">
+    <div class="col-md-6 my-4">
       <table class="table">
         <thead>
           <tr>
@@ -23,14 +21,29 @@
             <th>Time</th>
           </tr>
         </thead>
-    </table>
-
+        <tbody>
+          <% @studies_all.each do |study| %>
+            <tr>
+              <td><%= study.date %></td>
+              <td>
+                <% if study.item.present? %>
+                  <%= study.item %>
+                <% else %>
+                  <p>その他</p>
+                <% end %>
+              </td>
+              <td><%= study.time %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 
+  <div class="row">
+    <div class="col-md-6 py-4">
+      <h3>合計時間: <%= @studies %>時間</h3>
+    </div>
   </div>
-
-
 
 </div>
-
-<h3>合計時間:<%= @studies %></h3>

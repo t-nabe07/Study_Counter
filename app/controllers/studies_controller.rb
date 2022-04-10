@@ -3,6 +3,7 @@ class StudiesController < ApplicationController
   def index
     @study = Study.new
     @studies = Study.all.sum(:time)
+    @studies_all = Study.all
   end
 
   def create
