@@ -1,0 +1,15 @@
+<h1>Studies#index</h1>
+<p>Find me in app/views/studies/index.html.erb</p>
+
+<h3>勉強時間を記録しよう!!</h3>
+<%= form_with model: @study, url:'/studies', local:true do |f| %>
+  <h4>day</h4>
+  <%= f.date_select :date %>
+  <h4>time</h4>
+  <%= f.text_area :time, placeholder: "小数点第一位まで可", size: "40 x 5" %>
+  <h4>category</h4>
+  <p>カテゴリー(item)実装予定</p>
+  <%= f.submit "記録",class: 'submit_btn' %>
+<% end %>
+
+<h3>合計時間:<%= @studies %></h3>
