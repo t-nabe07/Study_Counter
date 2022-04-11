@@ -17,10 +17,16 @@ class StudiesController < ApplicationController
   def update
   end
 
+  def destroy
+    study = Study.find(params[:id])
+    study.destroy
+    redirect_to action: 'index'
+  end
+
   private
 
   def study_params
-    params.require(:study).permit(:time, :date)
+    params.require(:study).permit(:time, :date, :item)
   end
 
 end

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6 my-4">
-      <h3>勉強時間を記録しよう!!</h3>
+      <h3>勉強時間を記録しよう!!</h3><br>
       <%= form_with model: @study, url:'/studies', local:true do |f| %>
         <h4>day</h4>
         <%= f.date_select :date %>
@@ -19,6 +19,7 @@
             <th>Day</th>
             <th>Category</th>
             <th>Time</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -33,6 +34,7 @@
                 <% end %>
               </td>
               <td><%= study.time %></td>
+              <td><%= link_to "削除",destroy_study_path(study.id),method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
             </tr>
           <% end %>
         </tbody>
@@ -41,8 +43,16 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6 py-4">
+    <div class="col-md-6 my-4">
       <h3>合計時間: <%= @studies %>時間</h3>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 my-4">
+      <%#= column_chart Study.group_by_day(:created_at, last:7).sum(:time) %>
+      <%= column_chart Study.pluck(:date, :time) %>
+      <%= pie_chart Study.group(:item).count %>
     </div>
   </div>
 
